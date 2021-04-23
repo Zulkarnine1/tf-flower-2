@@ -1,1 +1,1 @@
-web: gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
+web: uvicorn --timeout-keep-alive 0 main:app --host=0.0.0.0 --port=${PORT:-5000}
