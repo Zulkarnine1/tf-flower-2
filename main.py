@@ -1,9 +1,7 @@
 # Imports
-from fastapi import FastAPI, File, UploadFile, HTTPException
-from PIL import Image, UnidentifiedImageError
+from fastapi import FastAPI, HTTPException
+from PIL import  UnidentifiedImageError
 from pydantic import BaseModel
-from tensorflow.keras.models import load_model
-import numpy as np
 import sys
 import uvicorn
 
@@ -32,7 +30,8 @@ app = FastAPI()
 class Prediction(BaseModel):
   prediction: str
 
-
+class Item(BaseModel):
+  file: str
 
 # Define the main route
 @app.get('/')
@@ -42,12 +41,12 @@ def root_route():
 
 # Define the /prediction route
 @app.post('/prediction/', response_model=Prediction)
-async def prediction_route(file: UploadFile = File(...)):
+async def prediction_route(item:Item):
 
   try:
       # Image processing
-      contents = await file.read()
-      processed_image = image_processor.process_image(contents,SIZE)
+
+      processed_image = image_processor.process_image(item.file,SIZE)
 
       # Making prediction
       likely_class = prediction_manager.predict(processed_image)
