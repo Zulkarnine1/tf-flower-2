@@ -15,7 +15,7 @@ from predictionManager import PredictionManager
 
 
 # Constants
-SIZE = 150
+SIZE = 512
 
 
 # Objects

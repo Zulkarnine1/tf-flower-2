@@ -1,5 +1,5 @@
 # Imports
-from tensorflow.keras.models import load_model
+from tensorflow.keras.models import load_model, model_from_json
 import numpy as np
 
 # Constants
@@ -22,7 +22,11 @@ CLASSES = ['pink primrose',    'hard-leaved pocket orchid', 'canterbury bells', 
 # Class to make prediciton from the pretrained model
 class PredictionManager:
     def __init__(self):
-        self.model = load_model(FILEPATH, compile = True)
+        with open('./saved_models/model.json', 'r') as json_file:
+            json_savedModel = json_file.read()
+        model = model_from_json(json_savedModel)
+        model.load_weights("./saved_models/weights.h5")
+        self.model = model
 
     def predict(self, image):
         # Generate prediction
