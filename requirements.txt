@@ -1,12 +1,13 @@
 fastapi
 Pillow
 pydantic
-tensorflow
+tensorflow-cpu
 numpy
 uvicorn
 gunicorn==19.9.0
-aiofiles==0.6.0
 python-multipart
 uvloop
 httptools
-cv2
+base64
+
+
