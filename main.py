@@ -90,7 +90,7 @@ async def prediction_route1(file: UploadFile = File(...)):
       raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
-    uvicorn.run(app)
+    uvicorn.run(app,port=8000,host="127.0.0.1")
 
 
 
