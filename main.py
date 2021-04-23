@@ -1,6 +1,6 @@
 # Imports
-from fastapi import FastAPI, HTTPException
-from PIL import  UnidentifiedImageError
+from fastapi import FastAPI, HTTPException,UploadFile,File
+from PIL import   UnidentifiedImageError
 from pydantic import BaseModel
 import sys
 import uvicorn
@@ -58,6 +58,33 @@ async def prediction_route(item:Item):
   except  UnidentifiedImageError:
       raise HTTPException(status_code=500, detail=str("File is not of image format. Please upload an image file."))
   except :
+      e = sys.exc_info()[1]
+      print(sys.exc_info())
+      raise HTTPException(status_code=500, detail=str(e))
+
+
+
+
+# Define the /prediction route
+@app.post('/prediction2/', response_model=Prediction)
+async def prediction_route1(file: UploadFile = File(...)):
+
+  try:
+      # Image processing
+      contents = await file.read()
+      processed_image = image_processor.process_image1(contents, SIZE)
+
+      # Making prediction
+      likely_class = prediction_manager.predict(processed_image)
+      print(likely_class)
+
+      return {
+          'prediction': likely_class
+      }
+
+  except  UnidentifiedImageError:
+      raise HTTPException(status_code=500, detail=str("File is not of image format. Please upload an image file."))
+  except:
       e = sys.exc_info()[1]
       print(sys.exc_info())
       raise HTTPException(status_code=500, detail=str(e))
