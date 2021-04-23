@@ -4,7 +4,6 @@ from PIL import   UnidentifiedImageError
 from pydantic import BaseModel
 import sys
 import uvicorn
-from waitress import serve
 
 # Local imports
 from imageProcessor import ImageProcessor
@@ -91,7 +90,7 @@ async def prediction_route1(file: UploadFile = File(...)):
       raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
-    serve(app,host="0.0.0.0")
+    uvicorn.run(app,host="0.0.0.0")
 
 
 
