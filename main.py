@@ -40,7 +40,7 @@ def root_route():
 
 
 # Define the /prediction route
-@app.post('/prediction/', response_model=Prediction)
+@app.post('/prediction', response_model=Prediction)
 async def prediction_route(item:Item):
 
   try:
@@ -61,6 +61,11 @@ async def prediction_route(item:Item):
       e = sys.exc_info()[1]
       print(sys.exc_info())
       raise HTTPException(status_code=500, detail=str(e))
+
+
+
+
+
 
 if __name__ == "__main__":
     uvicorn.run(app)
