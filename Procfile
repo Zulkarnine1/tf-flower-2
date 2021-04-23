@@ -1,1 +1,1 @@
-web: uvicorn --timeout-keep-alive 25 main:app --host=0.0.0.0 --port=${PORT:-5000}
+web: uvicorn --timeout-keep-alive 1000 main:app --host=0.0.0.0 --port=${PORT:-5000}
