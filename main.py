@@ -36,7 +36,7 @@ class Item(BaseModel):
 # Define the main route
 @app.get('/')
 def root_route():
-  return {'Message': 'Please post the image you want to predict at /prediction route.'}
+  return {'Message': 'Please post the image you want to predict at /prediction route as json data or at /predictionform as formdata.'}
 
 
 # Define the /prediction route
